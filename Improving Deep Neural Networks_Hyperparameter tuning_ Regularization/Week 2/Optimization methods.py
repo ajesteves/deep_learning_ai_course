@@ -68,8 +68,7 @@ def update_parameters_with_gd(parameters, grads, learning_rate):
     # Update rule for each parameter
     for l in range(L):
         ### START CODE HERE ### (approx. 2 lines)
-        parameters["W" + str(l+1)] = parameters["W" + str(l+1)] - learning_rate * grads["dW" + str(l+1)]
-        parameters["b" + str(l+1)] = parameters["b" + str(l+1)] - learning_rate * grads["db" + str(l+1)]
+
         ### END CODE HERE ###
         
     return parameters
@@ -229,8 +228,7 @@ def random_mini_batches(X, Y, mini_batch_size = 64, seed = 0):
     num_complete_minibatches = math.floor(m/mini_batch_size) # number of mini batches of size mini_batch_size in your partitionning
     for k in range(0, num_complete_minibatches):
         ### START CODE HERE ### (approx. 2 lines)
-        mini_batch_X = shuffled_X[:, k * mini_batch_size : (k + 1) * mini_batch_size]
-        mini_batch_Y = shuffled_Y[:, k * mini_batch_size : (k + 1) * mini_batch_size]
+ 
         ### END CODE HERE ###
         mini_batch = (mini_batch_X, mini_batch_Y)
         mini_batches.append(mini_batch)
@@ -238,8 +236,7 @@ def random_mini_batches(X, Y, mini_batch_size = 64, seed = 0):
     # Handling the end case (last mini-batch < mini_batch_size)
     if m % mini_batch_size != 0:
         ### START CODE HERE ### (approx. 2 lines)
-        mini_batch_X = shuffled_X[:, num_complete_minibatches * mini_batch_size:]
-        mini_batch_Y = shuffled_Y[:, num_complete_minibatches * mini_batch_size:]
+
         ### END CODE HERE ###
         mini_batch = (mini_batch_X, mini_batch_Y)
         mini_batches.append(mini_batch)
@@ -346,9 +343,8 @@ def initialize_velocity(parameters):
     # Initialize velocity
     for l in range(L):
         ### START CODE HERE ### (approx. 2 lines)
-        v["dW" + str(l+1)] = np.zeros(parameters["W"+str(l+1)].shape)
-        v["db" + str(l+1)] = np.zeros(parameters["b"+str(l+1)].shape)
-        ### END CODE HERE ###
+ 
+         ### END CODE HERE ###
         
     return v
 
@@ -442,11 +438,9 @@ def update_parameters_with_momentum(parameters, grads, v, beta, learning_rate):
         
         ### START CODE HERE ### (approx. 4 lines)
         # compute velocities
-        v["dW" + str(l+1)] = beta * v["dW" + str(l+1)] + (1 - beta) * grads["dW" + str(l+1)]
-        v["db" + str(l+1)] = beta * v["db" + str(l+1)] + (1 - beta) * grads["db" + str(l+1)]
+
         # update parameters
-        parameters["W" + str(l+1)] = parameters["W" + str(l+1)] - learning_rate * v["dW" + str(l+1)]
-        parameters["b" + str(l+1)] = parameters["b" + str(l+1)] - learning_rate * v["db" + str(l+1)]
+
         ### END CODE HERE ###
         
     return parameters, v
@@ -611,10 +605,7 @@ def initialize_adam(parameters) :
     # Initialize v, s. Input: "parameters". Outputs: "v, s".
     for l in range(L):
     ### START CODE HERE ### (approx. 4 lines)
-        v["dW" + str(l+1)] = np.zeros(parameters["W" + str(l+1)].shape)
-        v["db" + str(l+1)] = np.zeros(parameters["b" + str(l+1)].shape)
-        s["dW" + str(l+1)] = np.zeros(parameters["W" + str(l+1)].shape)
-        s["db" + str(l+1)] = np.zeros(parameters["b" + str(l+1)].shape)
+
     ### END CODE HERE ###
     
     return v, s
@@ -742,32 +733,27 @@ def update_parameters_with_adam(parameters, grads, v, s, t, learning_rate = 0.01
     for l in range(L):
         # Moving average of the gradients. Inputs: "v, grads, beta1". Output: "v".
         ### START CODE HERE ### (approx. 2 lines)
-        v["dW" + str(l+1)] = beta1 * v["dW" + str(l+1)] + (1 - beta1) * grads["dW" + str(l+1)]
-        v["db" + str(l+1)] = beta1 * v["db" + str(l+1)] + (1 - beta1) * grads["db" + str(l+1)]
+
         ### END CODE HERE ###
 
         # Compute bias-corrected first moment estimate. Inputs: "v, beta1, t". Output: "v_corrected".
         ### START CODE HERE ### (approx. 2 lines)
-        v_corrected["dW" + str(l+1)] = v["dW" + str(l+1)] / (1 - beta1)
-        v_corrected["db" + str(l+1)] = v["db" + str(l+1)] / (1 - beta1)
+
         ### END CODE HERE ###
 
         # Moving average of the squared gradients. Inputs: "s, grads, beta2". Output: "s".
         ### START CODE HERE ### (approx. 2 lines)
-        s["dW" + str(l+1)] = beta2 * s["dW" + str(l+1)] + (1 - beta2) * (grads["dW" + str(l+1)] * grads["dW" + str(l+1)])
-        s["db" + str(l+1)] = beta2 * s["db" + str(l+1)] + (1 - beta2) * (grads["db" + str(l+1)] * grads["db" + str(l+1)])
+
         ### END CODE HERE ###
 
         # Compute bias-corrected second raw moment estimate. Inputs: "s, beta2, t". Output: "s_corrected".
         ### START CODE HERE ### (approx. 2 lines)
-        s_corrected["dW" + str(l+1)] = s["dW" + str(l+1)] / (1 - beta2)
-        s_corrected["db" + str(l+1)] = s["db" + str(l+1)] / (1 - beta2)
+
         ### END CODE HERE ###
 
         # Update parameters. Inputs: "parameters, learning_rate, v_corrected, s_corrected, epsilon". Output: "parameters".
         ### START CODE HERE ### (approx. 2 lines)
-        parameters["W" + str(l+1)] = parameters["W" + str(l+1)] - learning_rate * v_corrected["dW" + str(l+1)] / (np.sqrt(s_corrected["dW" + str(l+1)]) + epsilon)
-        parameters["b" + str(l+1)] = parameters["b" + str(l+1)] - learning_rate * v_corrected["db" + str(l+1)] / (np.sqrt(s_corrected["db" + str(l+1)]) + epsilon)
+
         ### END CODE HERE ###
 
     return parameters, v, s

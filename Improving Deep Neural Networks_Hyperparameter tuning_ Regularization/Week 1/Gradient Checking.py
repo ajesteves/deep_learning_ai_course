@@ -67,7 +67,8 @@ def forward_propagation(x, theta):
     """
     
     ### START CODE HERE ### (approx. 1 line)
-    J = np.dot(theta, x)
+
+
     ### END CODE HERE ###
     
     return J
@@ -108,7 +109,7 @@ def backward_propagation(x, theta):
     """
     
     ### START CODE HERE ### (approx. 1 line)
-    dtheta = x
+
     ### END CODE HERE ###
     
     return dtheta
@@ -168,22 +169,16 @@ def gradient_check(x, theta, epsilon = 1e-7):
     
     # Compute gradapprox using left side of formula (1). epsilon is small enough, you don't need to worry about the limit.
     ### START CODE HERE ### (approx. 5 lines)
-    thetaplus = theta + epsilon                    # Step 1
-    thetaminus = theta - epsilon                   # Step 2
-    J_plus = forward_propagation(x, thetaplus)        # Step 3
-    J_minus = forward_propagation(x, thetaminus)      # Step 4
-    gradapprox = (J_plus - J_minus) / (2 * epsilon)                              # Step 5
+
     ### END CODE HERE ###
     
     # Check if gradapprox is close enough to the output of backward_propagation()
     ### START CODE HERE ### (approx. 1 line)
-    grad = backward_propagation(x, theta)
+
     ### END CODE HERE ###
     
     ### START CODE HERE ### (approx. 1 line)
-    numerator = np.linalg.norm(grad - gradapprox)                               # Step 1'
-    denominator = np.linalg.norm(grad) + np.linalg.norm(gradapprox)                             # Step 2'
-    difference = numerator / denominator                              # Step 3'
+
     ### END CODE HERE ###
     
     if difference < 1e-7:
@@ -376,28 +371,22 @@ def gradient_check_n(parameters, gradients, X, Y, epsilon = 1e-7):
         # Compute J_plus[i]. Inputs: "parameters_values, epsilon". Output = "J_plus[i]".
         # "_" is used because the function you have to outputs two parameters but we only care about the first one
         ### START CODE HERE ### (approx. 3 lines)
-        thetaplus = np.copy(parameters_values)                                      # Step 1
-        thetaplus[i][0] = thetaplus[i][0] + epsilon                                # Step 2
-        J_plus[i], _ = forward_propagation_n(X, Y, vector_to_dictionary(thetaplus))  # Step 3
+
         ### END CODE HERE ###
         
         # Compute J_minus[i]. Inputs: "parameters_values, epsilon". Output = "J_minus[i]".
         ### START CODE HERE ### (approx. 3 lines)
-        thetaminus = np.copy(parameters_values)                                     # Step 1
-        thetaminus[i][0] = thetaminus[i][0] - epsilon                               # Step 2        
-        J_minus[i], _ = forward_propagation_n(X, Y, vector_to_dictionary(thetaminus))                                  # Step 3
+ 
         ### END CODE HERE ###
         
         # Compute gradapprox[i]
         ### START CODE HERE ### (approx. 1 line)
-        gradapprox[i] = (J_plus[i] - J_minus[i]) / (2 * epsilon)
+ 
         ### END CODE HERE ###
     
     # Compare gradapprox to backward propagation gradients by computing difference.
     ### START CODE HERE ### (approx. 1 line)
-    numerator = np.linalg.norm(grad - gradapprox) # Step 1'
-    denominator = np.linalg.norm(grad) + np.linalg.norm(gradapprox)                                         # Step 2'
-    difference = numerator / denominator                                          # Step 3'
+
     ### END CODE HERE ###
 
     if difference > 1e-7:

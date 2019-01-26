@@ -137,8 +137,7 @@ def initialize_parameters_zeros(layers_dims):
     
     for l in range(1, L):
         ### START CODE HERE ### (≈ 2 lines of code)
-        parameters['W' + str(l)] = np.zeros((layers_dims[l], layers_dims[l-1]))
-        parameters['b' + str(l)] = np.zeros((layers_dims[l], 1))
+
         ### END CODE HERE ###
     return parameters
 
@@ -260,8 +259,7 @@ def initialize_parameters_random(layers_dims):
     
     for l in range(1, L):
         ### START CODE HERE ### (≈ 2 lines of code)
-        parameters['W' + str(l)] = np.random.randn(layers_dims[l], layers_dims[l-1]) * 10
-        parameters['b' + str(l)] = np.zeros((layers_dims[l], 1))
+
         ### END CODE HERE ###
 
     return parameters
@@ -388,8 +386,7 @@ def initialize_parameters_he(layers_dims):
      
     for l in range(1, L + 1):
         ### START CODE HERE ### (≈ 2 lines of code)
-        parameters['W' + str(l)] = np.random.randn(layers_dims[l], layers_dims[l-1]) * np.sqrt(2.0 / layers_dims[l-1])
-        parameters['b' + str(l)] = np.zeros((layers_dims[l], 1))
+
         ### END CODE HERE ###
         
     return parameters

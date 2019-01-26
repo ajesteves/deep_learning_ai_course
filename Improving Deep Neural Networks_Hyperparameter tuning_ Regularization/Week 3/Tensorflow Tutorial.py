@@ -126,17 +126,13 @@ def linear_function():
     np.random.seed(1)
     
     ### START CODE HERE ### (4 lines of code)
-    X = tf.constant(np.random.randn(3, 1), name="X")
-    W = tf.constant(np.random.randn(4, 3), name="W")
-    b = tf.constant(np.random.randn(4, 1), name="b")
-    Y = tf.add(tf.matmul(W, X), b)
+
     ### END CODE HERE ### 
     
     # Create the session using tf.Session() and run it with sess.run(...) on the variable you want to calculate
     
     ### START CODE HERE ###
-    sess = tf.Session()
-    result = sess.run(Y)
+
     ### END CODE HERE ### 
     
     # close the session 
@@ -214,16 +210,15 @@ def sigmoid(z):
     
     ### START CODE HERE ### ( approx. 4 lines of code)
     # Create a placeholder for x. Name it 'x'.
-    x = tf.placeholder(tf.float32, name="x")
+
 
     # compute sigmoid(x)
-    sigmoid = tf.sigmoid(x)
+
 
     # Create a session, and run it. Please use the method 2 explained above. 
     # You should use a feed_dict to pass z's value to x. 
-    with tf.Session() as sess:
+
         # Run session and call the output "result"
-        result = sess.run(sigmoid, feed_dict={x: z})
     
     ### END CODE HERE ###
     
@@ -305,20 +300,19 @@ def cost(logits, labels):
     ### START CODE HERE ### 
     
     # Create the placeholders for "logits" (z) and "labels" (y) (approx. 2 lines)
-    z = tf.placeholder(tf.float32, name="z")
-    y = tf.placeholder(tf.float32, name="y")
+
     
     # Use the loss function (approx. 1 line)
-    cost = tf.nn.sigmoid_cross_entropy_with_logits(logits=z, labels=y)
-    
+ 
+
     # Create a session (approx. 1 line). See method 1 above.
-    sess = tf.Session()
-    
+ 
+
     # Run the session (approx. 1 line).
-    cost = sess.run(cost, feed_dict={z: logits, y: labels})
+
     
     # Close the session (approx. 1 line). See method 1 above.
-    sess.close()
+
     
     ### END CODE HERE ###
     
@@ -380,19 +374,19 @@ def one_hot_matrix(labels, C):
     ### START CODE HERE ###
     
     # Create a tf.constant equal to C (depth), name it 'C'. (approx. 1 line)
-    C = tf.constant(C, name="C")
+
     
     # Use tf.one_hot, be careful with the axis (approx. 1 line)
-    one_hot_matrix = tf.one_hot(labels, C, axis=0)
+
     
     # Create the session (approx. 1 line)
-    sess = tf.Session()
+
     
     # Run the session (approx. 1 line)
-    one_hot = sess.run(one_hot_matrix)
+
     
     # Close the session (approx. 1 line). See method 1 above.
-    sess.close()
+
     
     ### END CODE HERE ###
     
@@ -451,16 +445,16 @@ def ones(shape):
     ### START CODE HERE ###
     
     # Create "ones" tensor using tf.ones(...). (approx. 1 line)
-    ones = tf.ones(shape)
+
     
     # Create the session (approx. 1 line)
-    sess = tf.Session()
+
     
     # Run the session to compute 'ones' (approx. 1 line)
-    ones = sess.run(ones)
+
     
     # Close the session (approx. 1 line). See method 1 above.
-    sess.close()
+
     
     ### END CODE HERE ###
     return ones
@@ -581,8 +575,7 @@ def create_placeholders(n_x, n_y):
     """
 
     ### START CODE HERE ### (approx. 2 lines)
-    X = tf.placeholder(dtype=tf.float32, shape=[n_x, None], name="X")
-    Y = tf.placeholder(dtype=tf.float32, shape=[n_y, None], name="Y")
+
     ### END CODE HERE ###
     
     return X, Y
@@ -650,12 +643,7 @@ def initialize_parameters():
     tf.set_random_seed(1)                   # so that your "random" numbers match ours
         
     ### START CODE HERE ### (approx. 6 lines of code)
-    W1 = tf.get_variable("W1", [25, 12288], initializer=tf.contrib.layers.xavier_initializer(seed=1))
-    b1 = tf.get_variable("b1", [25, 1], initializer=tf.zeros_initializer())
-    W2 = tf.get_variable("W2", [12, 25], initializer=tf.contrib.layers.xavier_initializer(seed=1))
-    b2 = tf.get_variable("b2", [12, 1], initializer=tf.zeros_initializer())
-    W3 = tf.get_variable("W3", [6, 12], initializer=tf.contrib.layers.xavier_initializer(seed=1))
-    b3 = tf.get_variable("b3", [6, 1], initializer=tf.zeros_initializer())
+
     ### END CODE HERE ###
 
     parameters = {"W1": W1,
@@ -757,11 +745,7 @@ def forward_propagation(X, parameters):
     b3 = parameters['b3']
     
     ### START CODE HERE ### (approx. 5 lines)              # Numpy Equivalents:
-    Z1 = tf.add(tf.matmul(W1, X), b1)                                             # Z1 = np.dot(W1, X) + b1
-    A1 = tf.nn.relu(Z1)                                              # A1 = relu(Z1)
-    Z2 = tf.add(tf.matmul(W2, A1), b2)                                              # Z2 = np.dot(W2, a1) + b2
-    A2 = tf.nn.relu(Z2)                                              # A2 = relu(Z2)
-    Z3 = tf.add(tf.matmul(W3, A2), b3)                                              # Z3 = np.dot(W3,Z2) + b3
+
     ### END CODE HERE ###
     
     return Z3
@@ -825,8 +809,8 @@ def compute_cost(Z3, Y):
     labels = tf.transpose(Y)
     
     ### START CODE HERE ### (1 line of code)
-    cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=logits, labels= labels))
-    ### END CODE HERE ###
+
+     ### END CODE HERE ###
     
     return cost
 
@@ -913,27 +897,27 @@ def model(X_train, Y_train, X_test, Y_test, learning_rate = 0.0001,
     
     # Create Placeholders of shape (n_x, n_y)
     ### START CODE HERE ### (1 line)
-    X, Y = create_placeholders(n_x, n_y)
+
     ### END CODE HERE ###
 
     # Initialize parameters
     ### START CODE HERE ### (1 line)
-    parameters = initialize_parameters()
-    ### END CODE HERE ###
+ 
+     ### END CODE HERE ###
     
     # Forward propagation: Build the forward propagation in the tensorflow graph
     ### START CODE HERE ### (1 line)
-    Z3 = forward_propagation(X, parameters)
+
     ### END CODE HERE ###
     
     # Cost function: Add cost function to tensorflow graph
     ### START CODE HERE ### (1 line)
-    cost = compute_cost(Z3, Y)
-    ### END CODE HERE ###
+ 
+     ### END CODE HERE ###
     
     # Backpropagation: Define the tensorflow optimizer. Use an AdamOptimizer.
     ### START CODE HERE ### (1 line)
-    optimizer = tf.train.GradientDescentOptimizer(learning_rate=learning_rate).minimize(cost)
+
     ### END CODE HERE ###
     
     # Initialize all the variables
@@ -961,7 +945,7 @@ def model(X_train, Y_train, X_test, Y_test, learning_rate = 0.0001,
                 # IMPORTANT: The line that runs the graph on a minibatch.
                 # Run the session to execute the "optimizer" and the "cost", the feedict should contain a minibatch for (X,Y).
                 ### START CODE HERE ### (1 line)
-                _ , minibatch_cost = sess.run([optimizer, cost], feed_dict={X: minibatch_X, Y: minibatch_Y})
+ 
                 ### END CODE HERE ###
                 
                 epoch_cost += minibatch_cost / num_minibatches
@@ -1045,7 +1029,7 @@ from PIL import Image
 from scipy import ndimage
 
 ## START CODE HERE ## (PUT YOUR IMAGE NAME) 
-my_image = "thumbs_up.jpg"
+
 ## END CODE HERE ##
 
 # We preprocess your image to fit your algorithm.
